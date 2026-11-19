@@ -57,6 +57,6 @@ document.addEventListener("click",function(e){var routeEl=e.target.closest("[dat
 document.getElementById("menu").addEventListener("click",function(){nav.classList.toggle("open")});
 document.addEventListener("keydown",function(e){if(!document.getElementById("lightbox").classList.contains("show"))return;if(e.key==="Escape")close();if(e.key==="ArrowLeft"){gindex=(gindex+gallery.length-1)%gallery.length;showCurrent()}if(e.key==="ArrowRight"){gindex=(gindex+1)%gallery.length;showCurrent()}});
 window.addEventListener("hashchange",render);
-fetch("../index.html",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.text()}).then(function(source){var m=source.match(/const DATA=(\{[\s\S]*?\});\s*\n/);if(!m)throw Error("原站资料未找到");DATA=JSON.parse(m[1]);render()}).catch(function(e){app.innerHTML='<div class="wrap section"><div class="error"><h2>预览暂时加载失败</h2><p>未能读取原网站的照片和行程内容：'+esc(e.message)+'</p><p>请稍后刷新页面。</p></div></div>';console.error(e)});
+fetch("./data.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(function(data){DATA=data;render()}).catch(function(e){app.innerHTML='<div class="wrap section"><div class="error"><h2>预览暂时加载失败</h2><p>未能读取原网站的照片和行程内容：'+esc(e.message)+'</p><p>请稍后刷新页面。</p></div></div>';console.error(e)});
 })();
 </script></body></html>
